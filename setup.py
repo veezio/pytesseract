@@ -6,7 +6,8 @@ from distutils.command.build import build
 
 VERSION = (0, 1, '0dev')
 INCLUDE_DIRS = [
-    "/usr/local/include",
+    "/usr/include", # Debian
+    "/usr/local/include", # OS X
 ]
 LIBRARIES = [
     "tesseract",
@@ -20,7 +21,7 @@ build.sub_commands.insert(0, ('build_ext', build.has_ext_modules))
 tesseract_module = Extension('_tesseract',
     sources=["tesseract.i"],
     swig_opts=["-c++"] + ["-I%s" % d for d in INCLUDE_DIRS],
-    include_dirs=["-I%s" % d for d in INCLUDE_DIRS],
+    include_dirs=INCLUDE_DIRS,
     libraries=LIBRARIES,
 )
 
