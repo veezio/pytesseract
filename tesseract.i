@@ -8,6 +8,7 @@
 #include <tesseract/resultiterator.h>
 
 %}
+
 %include "typemaps.i"
 %include "cpointer.i"
 %typemap(in) unsigned char *
@@ -29,7 +30,10 @@
 {
 	$1 = (l_int32)PyInt_AsLong($input);
 }
+
+%ignore tesseract::TessBaseAPI::GetLastInitLanguage;
 %ignore tesseract::TessBaseAPI::SetDictFunc;
+
 %include <leptonica/pix.h>
 %include <tesseract/publictypes.h>
 %include <tesseract/thresholder.h>
