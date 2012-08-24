@@ -6,9 +6,6 @@
 #include <tesseract/baseapi.h>
 #include <tesseract/pageiterator.h>
 #include <tesseract/resultiterator.h>
-#include <tesseract/dict.h>
-
-using namespace tesseract;
 
 %}
 %include "typemaps.i"
@@ -32,6 +29,7 @@ using namespace tesseract;
 {
 	$1 = (l_int32)PyInt_AsLong($input);
 }
+%ignore tesseract::TessBaseAPI::SetDictFunc;
 %include <leptonica/pix.h>
 %include <tesseract/publictypes.h>
 %include <tesseract/thresholder.h>
