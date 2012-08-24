@@ -1,5 +1,3 @@
-// written by FreeToGo@gmail.com
-
 %module tesseract
 %{
 #include <leptonica/allheaders.h>
@@ -8,6 +6,9 @@
 #include <tesseract/baseapi.h>
 #include <tesseract/pageiterator.h>
 #include <tesseract/resultiterator.h>
+#include <tesseract/dict.h>
+
+using namespace tesseract;
 
 %}
 %include "typemaps.i"
@@ -37,6 +38,3 @@
 %include <tesseract/baseapi.h>
 %include <tesseract/pageiterator.h>
 %include <tesseract/resultiterator.h>
-
-
-#define suck 100;
