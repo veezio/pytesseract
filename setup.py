@@ -1,22 +1,27 @@
 #!/usr/bin/env python
 
-from setuptools import setup, Extension
+from distutils.core import setup, Extension
+from distutils.command.build import build
 
 
 VERSION = (0, 1, '0dev')
 INCLUDE_DIRS = [
-	"/usr/local/include",
+    "/usr/local/include",
 ]
 LIBRARIES = [
-	"tesseract",
-	"lept",
+    "tesseract",
+    "lept",
 ]
 
+
+build.sub_commands.insert(0, ('build_ext', build.has_ext_modules))
+
+
 tesseract_module = Extension('_tesseract',
-	sources=["tesseract.i"],
-	swig_opts=["-c++"] + map(lambda d: "-I" + d, INCLUDE_DIRS),
-	include_dirs=map(lambda d: "-I" + d, INCLUDE_DIRS),
-	libraries=LIBRARIES,
+    sources=["tesseract.i"],
+    swig_opts=["-c++"] + ["-I%s" % d for d in INCLUDE_DIRS],
+    include_dirs=["-I%s" % d for d in INCLUDE_DIRS],
+    libraries=LIBRARIES,
 )
 
 
@@ -27,6 +32,6 @@ setup(
     author='veezio',
     author_email='contact@veez.io',
     url='https://github.com/veezio/pytesseract',
-	ext_modules = [tesseract_module],
-	py_modules = ["tesseract"]
+    ext_modules=[tesseract_module],
+    py_modules=["tesseract"]
 )
