@@ -54,5 +54,3 @@ setup(
     ext_modules=[tesseract_module],
     py_modules=["tesseract"]
 )
-
-os.unlink(COMPLETE_BINDING)
