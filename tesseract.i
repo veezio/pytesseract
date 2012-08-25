@@ -1,8 +1,6 @@
 %module tesseract
 %{
 #include <leptonica/allheaders.h>
-#include <tesseract/publictypes.h>
-#include <tesseract/thresholder.h>
 #include <tesseract/baseapi.h>
 #include <tesseract/pageiterator.h>
 #include <tesseract/resultiterator.h>
@@ -35,8 +33,9 @@
 %ignore tesseract::TessBaseAPI::SetDictFunc;
 
 %include <leptonica/pix.h>
-%include <tesseract/publictypes.h>
+%include <tesseract/platform.h>
+%include <tesseract/apitypes.h>
 %include <tesseract/thresholder.h>
-%include <tesseract/baseapi.h>
-%include <tesseract/pageiterator.h>
-%include <tesseract/resultiterator.h>
+%include <tesseract/unichar.h>
+%include <tesseract/tesscallback.h>
+%include <tesseract/publictypes.h>
