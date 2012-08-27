@@ -19,24 +19,28 @@ LIBRARIES = [
     "tesseract",
     "lept",
 ]
-COMPLETE_BINDING = "tesseract.complete.i"
 
 
 def resolve_optional_includes():
-    binding = open("tesseract.i").read()
-    files = set()
+    with open("tesseract.i.tpl") as fp:
+        template = fp.read()
+    files = []
     for d in INCLUDE_DIRS:
         for include_file in TESSERACT_OPT_INCLUDES:
-            if os.path.exists(os.path.join(d, "tesseract", include_file)):
-                files.add(include_file)
-    binding += "\n%s\n" % "\n".join(["%%include <tesseract/%s>" % f for f in files])
-    with open(COMPLETE_BINDING, "w") as fp:
+            if os.path.exists(os.path.join(d, "tesseract", include_file)) \
+              and include_file not in files:
+                files.append(include_file)
+    binding = template % {
+        "includes": "\n".join(["#include <tesseract/%s>" % f for f in files]),
+        "swig_includes": "\n".join(["%%include <tesseract/%s>" % f for f in files]),
+    }
+    with open("tesseract.i", "w") as fp:
         fp.write(binding)
 resolve_optional_includes()
 
 
 tesseract_module = Extension('_tesseract',
-    sources=[COMPLETE_BINDING],
+    sources=["tesseract.i"],
     swig_opts=["-c++"] + ["-I%s" % d for d in INCLUDE_DIRS],
     include_dirs=INCLUDE_DIRS,
     libraries=LIBRARIES,
