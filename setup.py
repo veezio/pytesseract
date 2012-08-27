@@ -12,8 +12,8 @@ INCLUDE_DIRS = [
 ]
 TESSERACT_OPT_INCLUDES = [
     "pageiterator.h",
-    "resultiterator.h",
     "ltrresultiterator.h",
+    "resultiterator.h",
 ]
 LIBRARIES = [
     "tesseract",
